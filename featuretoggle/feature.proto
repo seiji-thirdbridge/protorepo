@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package featureChecker;
+
+service FeatureToggleService {
+    rpc CreateToggle(Feature) returns (Response) {}
+    rpc GetToggles(GetRequest) returns (Response) {}
+    rpc IsEnabled(GetRequest) returns (Response) {}
+    rpc FlipToggle(Feature) returns (Response) {}
+    rpc DeleteToggle(Feature) returns (Response) {}
+}
+
+message Feature {
+    string id = 1;
+    string name = 2;
+    bool enabled = 3;
+}
+
+message GetRequest {
+    Feature feature = 1;
+    bool defaultValue = 2;
+}
+
+message Response {
+    bool created = 1;
+    Feature feature = 2;
+    repeated Feature features = 3;
+    bool isEnabled = 4;
+}
